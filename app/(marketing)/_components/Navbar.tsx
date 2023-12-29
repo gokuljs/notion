@@ -8,6 +8,7 @@ import { useConvex, useConvexAuth } from "convex/react";
 import { SignInButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/spinner";
+import Link from "next/link";
 
 const Navbar = () => {
   const scrolled = useScrollTop();
@@ -33,6 +34,13 @@ const Navbar = () => {
           <SignInButton mode="modal">
             <Button size="sm">Get Notion free</Button>
           </SignInButton>
+        )}
+        {isAuthenticated && !isLoading && (
+          <>
+            <Button variant={"ghost"} size="sm" asChild>
+              <Link href="/documents">Enter Notion</Link>
+            </Button>
+          </>
         )}
         <ModeToggle />
       </div>
