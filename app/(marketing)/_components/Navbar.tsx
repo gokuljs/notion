@@ -4,9 +4,14 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import Logo from "./Logo";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useConvex, useConvexAuth } from "convex/react";
+import { SignInButton } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/spinner";
 
 const Navbar = () => {
   const scrolled = useScrollTop();
+  const { isAuthenticated, isLoading } = useConvexAuth();
   return (
     <div
       className={cn(
@@ -16,6 +21,19 @@ const Navbar = () => {
     >
       <Logo />
       <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
+        {isLoading && <Spinner />}
+        {!isAuthenticated && !isLoading && (
+          <SignInButton mode="modal">
+            <Button variant={"ghost"} size="sm">
+              Login
+            </Button>
+          </SignInButton>
+        )}
+        {!isAuthenticated && !isLoading && (
+          <SignInButton mode="modal">
+            <Button size="sm">Get Notion free</Button>
+          </SignInButton>
+        )}
         <ModeToggle />
       </div>
     </div>
