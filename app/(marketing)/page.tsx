@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Heading from "./_components/Heading";
 import Heroes from "./_components/heroes";
+import Footer from "./_components/Footer";
 
 const MarketingPage = () => {
   return (
@@ -10,6 +9,7 @@ const MarketingPage = () => {
         <Heading />
         <Heroes />
       </div>
+      <Footer />
     </div>
   );
 };
