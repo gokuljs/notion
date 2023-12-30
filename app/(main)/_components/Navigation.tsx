@@ -1,11 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
-import React, { ElementRef, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import UserItem from "./UserItem";
 
 const Navigation = () => {
   const isMobile = useMediaQuery("(max-width : 768px)");
+  const pathName = usePathname();
   const isResizingRef = useRef(false);
   const sideBarRef = useRef<ElementRef<"aside">>(null);
   const navBarRef = useRef<HTMLDivElement>(null);
@@ -19,7 +22,7 @@ const Navigation = () => {
     event.stopPropagation();
     isResizingRef.current = true;
     document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseUp", handleMouseUp);
+    document.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -34,21 +37,49 @@ const Navigation = () => {
         navbar.style.setProperty("left", `${newWidth}px`);
         navbar.style.setProperty("width", `calc(100%-${newWidth}px)`);
       }
+    } else {
+      return;
     }
   };
 
   const handleMouseUp = () => {
     isResizingRef.current = false;
     document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseUp", handleMouseUp);
+    document.removeEventListener("mouseup", handleMouseUp);
   };
 
   const resetWidth = () => {
     if (sideBarRef.current && navBarRef.current) {
       setIsCollapsed(false);
       setIsResetting(false);
+      sideBarRef.current.style.width = isMobile ? "100%" : "240px";
+      navBarRef.current.style.setProperty(
+        "width",
+        isMobile ? "0%" : "calc(100%-240px)"
+      );
+      navBarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
+      setTimeout(() => setIsResetting(false), 300);
     }
   };
+
+  const collapse = () => {
+    if (sideBarRef.current && navBarRef.current) {
+      setIsCollapsed(true);
+      setIsResetting(true);
+      sideBarRef.current.style.width = "0";
+      navBarRef.current.style.setProperty("width", "100%");
+      navBarRef.current.style.setProperty("left", "0");
+      setTimeout(() => setIsResetting(false), 300);
+    }
+  };
+
+  useEffect(() => {
+    isMobile ? collapse() : resetWidth();
+  }, [isMobile]);
+
+  useEffect(() => {
+    isMobile && collapse();
+  }, [isMobile, pathName]);
 
   return (
     <>
@@ -61,6 +92,7 @@ const Navigation = () => {
         )}
       >
         <div
+          onClick={collapse}
           role="button"
           className={cn(
             "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
@@ -70,7 +102,7 @@ const Navigation = () => {
           <ChevronsLeft className="h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral" />
         </div>
         <div>
-          <p>Action items</p>
+          <UserItem />
         </div>
         <div className="mt-4">
           <p>Documents</p>
@@ -79,7 +111,8 @@ const Navigation = () => {
           onMouseDown={(e) => {
             handleMouseDown(e);
           }}
-          onClick={() => {}}
+          onMouseUp={handleMouseUp}
+          onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
         ></div>
       </aside>
@@ -93,7 +126,10 @@ const Navigation = () => {
       >
         <nav className="bg-transparent px-3 py-2 w-full">
           {isCollapsed && (
-            <MenuIcon className="h-6 w-6 text-muted-background" />
+            <MenuIcon
+              onClick={resetWidth}
+              className="h-6 w-6 text-muted-background cursor-pointer"
+            />
           )}
         </nav>
       </div>
