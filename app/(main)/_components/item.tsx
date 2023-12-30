@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
@@ -17,7 +18,7 @@ interface ItemProps {
   isSearch?: boolean;
 }
 
-const Item: React.FC<ItemProps> = ({
+export const Item = ({
   id,
   label,
   icon: Icon,
@@ -28,7 +29,7 @@ const Item: React.FC<ItemProps> = ({
   onExpand,
   expanded,
   isSearch,
-}) => {
+}: ItemProps) => {
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
   console.log(isSearch, "ssss");
   return (
@@ -72,4 +73,15 @@ const Item: React.FC<ItemProps> = ({
   );
 };
 
-export default Item;
+Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
+  return (
+    <div
+      style={{
+        paddingLeft: level ? `${level * 12 + 25}px` : "12px",
+      }}
+    >
+      <Skeleton className="h-4 w-4" />
+      <Skeleton className="h-4 w-[30%]" />
+    </div>
+  );
+};
