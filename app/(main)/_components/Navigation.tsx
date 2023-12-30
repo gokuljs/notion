@@ -36,11 +36,20 @@ const Navigation = () => {
       }
     }
   };
+
   const handleMouseUp = () => {
     isResizingRef.current = false;
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseUp", handleMouseUp);
   };
+
+  const resetWidth = () => {
+    if (sideBarRef.current && navBarRef.current) {
+      setIsCollapsed(false);
+      setIsResetting(false);
+    }
+  };
+
   return (
     <>
       <aside
