@@ -1,9 +1,13 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
+import { useMutation } from "convex/react";
+import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 interface ItemProps {
   id?: Id<"documents">;
@@ -31,11 +35,31 @@ export const Item = ({
   isSearch,
 }: ItemProps) => {
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
+  const router = useRouter();
+  const create = useMutation(api.documents.create);
   const handleExpand = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.stopPropagation();
     onExpand?.();
+  };
+  const onCreate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    if (!id) return;
+    const promise = create({
+      title: "Untitled",
+      parentDocument: id,
+    }).then((documentId) => {
+      if (!expanded) {
+        onExpand?.();
+        // router.push(`/documents/${documentId}`);
+      }
+    });
+    toast.promise(promise, {
+      loading: "creating a new note ...",
+      success: "New Note created",
+      error: "Failed to create a new note.",
+    });
   };
   return (
     <div
@@ -73,6 +97,17 @@ export const Item = ({
         >
           <span className="text-xs">⌘</span>k
         </kbd>
+      )}
+      {!!id && (
+        <div className="ml-auto flex item-center gap-x-2">
+          <div
+            role="button"
+            onClick={onCreate}
+            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+          >
+            <Plus />
+          </div>
+        </div>
       )}
     </div>
   );
