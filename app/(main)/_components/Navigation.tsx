@@ -15,6 +15,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Item } from "./item";
 import { toast } from "sonner";
+import { DocumentList } from "./DocumentList";
 
 const Navigation = () => {
   const isMobile = useMediaQuery("(max-width : 768px)");
