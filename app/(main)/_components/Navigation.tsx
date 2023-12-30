@@ -1,12 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronsLeft, MenuIcon, PlusCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import Item from "./item";
+import { toast } from "sonner";
 
 const Navigation = () => {
   const isMobile = useMediaQuery("(max-width : 768px)");
@@ -17,6 +19,7 @@ const Navigation = () => {
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const documents = useQuery(api.documents.get);
+  const create = useMutation(api.documents.create);
 
   const handleMouseDown = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -84,6 +87,17 @@ const Navigation = () => {
     isMobile && collapse();
   }, [isMobile, pathName]);
 
+  const handleCreate = () => {
+    const promise = create({
+      title: "Untitled",
+    });
+    toast.promise(promise, {
+      loading: "creating a new note ...",
+      success: "New Note created",
+      error: "Failed to create a new note.",
+    });
+  };
+
   return (
     <>
       <aside
@@ -106,6 +120,7 @@ const Navigation = () => {
         </div>
         <div>
           <UserItem />
+          <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
           {documents?.map((document) => (
@@ -119,7 +134,7 @@ const Navigation = () => {
           onMouseUp={handleMouseUp}
           onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
-        ></div>
+        />
       </aside>
       <div
         ref={navBarRef}
