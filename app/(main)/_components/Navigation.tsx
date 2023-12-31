@@ -133,6 +133,7 @@ const Navigation = () => {
         </div>
         <div className="mt-4">
           <DocumentList />
+          <Item onClick={handleCreate} label="Add a page" icon={PlusCircle} />
         </div>
         <div
           onMouseDown={(e) => {
