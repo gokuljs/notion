@@ -24,17 +24,18 @@ import {
 } from '@/components/ui/popover';
 import TrashBox from './TrashBox';
 import { useSearch } from '@/hooks/use-search';
+import { useUserSettings } from '@/hooks/use-Settings';
 
 const Navigation = () => {
     const isMobile = useMediaQuery('(max-width : 768px)');
     const search = useSearch();
+    const settings = useUserSettings();
     const pathName = usePathname();
     const isResizingRef = useRef(false);
     const sideBarRef = useRef<ElementRef<'aside'>>(null);
     const navBarRef = useRef<HTMLDivElement>(null);
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const documents = useQuery(api.documents.get);
     const create = useMutation(api.documents.create);
 
     const handleMouseDown = (
@@ -150,7 +151,11 @@ const Navigation = () => {
                         icon={Search}
                         isSearch
                     />
-                    <Item onClick={() => {}} label='Settings' icon={Settings} />
+                    <Item
+                        onClick={settings.onOpen}
+                        label='Settings'
+                        icon={Settings}
+                    />
                 </div>
                 <div className='mt-4'>
                     <DocumentList />
