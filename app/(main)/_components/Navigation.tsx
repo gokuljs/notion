@@ -23,9 +23,11 @@ import {
     PopoverTrigger
 } from '@/components/ui/popover';
 import TrashBox from './TrashBox';
+import { useSearch } from '@/hooks/use-search';
 
 const Navigation = () => {
     const isMobile = useMediaQuery('(max-width : 768px)');
+    const search = useSearch();
     const pathName = usePathname();
     const isResizingRef = useRef(false);
     const sideBarRef = useRef<ElementRef<'aside'>>(null);
@@ -143,7 +145,7 @@ const Navigation = () => {
                         icon={PlusCircle}
                     />
                     <Item
-                        onClick={() => {}}
+                        onClick={search.onOpen}
                         label='Search'
                         icon={Search}
                         isSearch
