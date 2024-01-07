@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/Provider/theme-provider';
 import { ConvexClientProvider } from '@/components/Provider/convex-provider';
 import { Toaster, toast } from 'sonner';
+import SearchCommand from '@/components/SearchCommand';
 
 const inter = Inter({ subsets: ['latin'] });
 
