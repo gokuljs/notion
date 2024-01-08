@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface MenuProps {
     documentId: Id<'documents'>;
@@ -58,6 +59,10 @@ const Menu = ({ documentId }: MenuProps) => {
             </DropdownMenuContent>
         </DropdownMenu>
     );
+};
+
+Menu.Skeleton = () => {
+    return <Skeleton className='h-10 w-10' />;
 };
 
 export default Menu;
