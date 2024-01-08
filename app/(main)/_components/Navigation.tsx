@@ -25,7 +25,7 @@ import {
 import TrashBox from './TrashBox';
 import { useSearch } from '@/hooks/use-search';
 import { useUserSettings } from '@/hooks/use-Settings';
-import Navbar from '@/app/(marketing)/_components/Navbar';
+import Navbar from './Navbar';
 
 const Navigation = () => {
     const isMobile = useMediaQuery('(max-width : 768px)');
