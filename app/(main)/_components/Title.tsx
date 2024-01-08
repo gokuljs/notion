@@ -29,15 +29,37 @@ const Title = ({ initialData }: TitleProps) => {
     const disableInput = () => {
         setIsEditing(false);
     };
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value);
+        update({
+            id: initialData._id,
+            title: event.target.value || 'untitled'
+        });
+    };
+
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            disableInput();
+        }
+    };
     return (
         <div className='flex items-center gap-x-1'>
             {!!initialData.icon && <p>{initialData.icon}</p>}
             {isEditing ? (
-                <Input className='h-7 px-2 focus-visible:ring-transparent' />
+                <Input
+                    ref={inputRef}
+                    onClick={enableInput}
+                    onBlur={disableInput}
+                    onChange={onChange}
+                    onKeyDown={onKeyDown}
+                    value={title}
+                    className='h-7 px-2 focus-visible:ring-transparent'
+                />
             ) : (
                 <Button
                     variant={'ghost'}
-                    onClick={() => {}}
+                    onClick={enableInput}
                     size={'sm'}
                     className='font-normal h-auto p-1'
                 >
