@@ -8,7 +8,7 @@ import {
     Settings,
     Trash
 } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import React, { ElementRef, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import UserItem from './UserItem';
@@ -25,11 +25,13 @@ import {
 import TrashBox from './TrashBox';
 import { useSearch } from '@/hooks/use-search';
 import { useUserSettings } from '@/hooks/use-Settings';
+import Navbar from './Navbar';
 
 const Navigation = () => {
     const isMobile = useMediaQuery('(max-width : 768px)');
     const search = useSearch();
     const settings = useUserSettings();
+    const params = useParams();
     const pathName = usePathname();
     const isResizingRef = useRef(false);
     const sideBarRef = useRef<ElementRef<'aside'>>(null);
@@ -193,6 +195,12 @@ const Navigation = () => {
                     isMobile && 'left-0 w-full'
                 )}
             >
+                {!!params.documentId && (
+                    <Navbar
+                        isCollapsed={isCollapsed}
+                        onResetWidth={resetWidth}
+                    />
+                )}
                 <nav className='bg-transparent px-3 py-2 w-full'>
                     {isCollapsed && (
                         <MenuIcon
