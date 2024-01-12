@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { removeIcon } from '@/convex/documents';
+import { useCoverImage } from '@/hooks/use-cover-Image';
 import { useMutation } from 'convex/react';
 import { ImageIcon, Smile, X } from 'lucide-react';
 import React, { ElementRef, useRef, useState } from 'react';
@@ -19,6 +20,7 @@ const ToolBar = ({ initialData, preview }: TollBarProps) => {
     const [value, setValue] = useState(initialData.title);
     const update = useMutation(api.documents.update);
     const removeIcon = useMutation(api.documents.removeIcon);
+    const coverImage = useCoverImage();
 
     const enableInput = () => {
         if (preview) return;
@@ -97,7 +99,7 @@ const ToolBar = ({ initialData, preview }: TollBarProps) => {
                 )}
                 {!initialData.coverImage && !preview && (
                     <Button
-                        onClick={() => {}}
+                        onClick={() => coverImage.onOpen()}
                         className='text-muted-foreground text-xs'
                         variant='outline'
                         size='sm'
