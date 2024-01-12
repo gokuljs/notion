@@ -24,6 +24,7 @@
         "clsx": "^2.0.0",
         "cmdk": "^0.2.0",
         "convex": "^1.7.1",
+        "emoji-picker-react": "^4.6.8",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.1.2",
         "lucide-react": "^0.303.0",
