@@ -30,10 +30,10 @@ const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
         );
 
     if (document === null) return null;
-    console.log(document._id);
+
     return (
         <>
-            <div className='bg-background dark:bg=[#1f1f1f] px-3 py-2 w-full flex items-center gap-x-4'>
+            <div className='bg-background dark:bg=[#1f1f1f] px-3 py-2 w-full flex items-center gap-x-4 z-1'>
                 {isCollapsed && (
                     <MenuIcon
                         role='button'
@@ -41,7 +41,7 @@ const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
                         className='h-6 w-6 text-muted-foreground'
                     />
                 )}
-                <div className='flex items-center justify-between w-full'>
+                <div className='flex items-center justify-between w-full z-0'>
                     <Title initialData={document} />
                     <div className='flex items-center gap-x-2'>
                         <Menu documentId={document._id} />

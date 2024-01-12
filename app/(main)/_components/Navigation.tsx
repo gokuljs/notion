@@ -190,7 +190,7 @@ const Navigation = () => {
             <div
                 ref={navBarRef}
                 className={cn(
-                    'absolute top-0 z-[999999] left-60 w-[calc(100%-240px)]',
+                    'absolute top-0  left-60 w-[calc(100%-240px)]',
                     isResetting && 'transition-all ease-in-out duration-300',
                     isMobile && 'left-0 w-full'
                 )}
