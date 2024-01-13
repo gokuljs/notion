@@ -45,7 +45,7 @@ export const CoverImageModal = () => {
 
     return (
         <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
-            <DialogTrigger>Open</DialogTrigger>
+            {/* <DialogTrigger>Open</DialogTrigger> */}
             <DialogContent>
                 <DialogHeader>
                     <h2 className='text-center text-lg font-semibold'>
