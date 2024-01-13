@@ -23,7 +23,7 @@ const page = () => {
     };
     return (
         <div className='h-full flex flex-col items-center justify-center space-y-4'>
-            {/* <Image
+            <Image
                 src='/empty.png'
                 height={300}
                 width={300}
@@ -43,7 +43,7 @@ const page = () => {
             <Button onClick={onCreate}>
                 <PlusCircle className='h-4 w-4 mr-2' />
                 Create a Note
-            </Button> */}
+            </Button>
         </div>
     );
 };
