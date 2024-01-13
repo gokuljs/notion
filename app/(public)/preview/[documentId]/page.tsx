@@ -52,12 +52,17 @@ const DocumentIdPage = ({ params }: DocumentIdProps) => {
     return (
         <div className='pb-40'>
             <Cover
+                preview
                 url={document.coverImage}
                 isArchived={document?.isArchived}
             />
             <div className='md:max-w-3xl lg:max-4-xl lg:px-40'>
-                <ToolBar initialData={document} />
-                <Editor onChange={onChange} initialContent={document.content} />
+                <ToolBar preview initialData={document} />
+                <Editor
+                    editable={false}
+                    onChange={onChange}
+                    initialContent={document.content}
+                />
             </div>
         </div>
     );

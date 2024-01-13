@@ -14,9 +14,10 @@ import React from 'react';
 
 interface CoverImageProps {
     url?: string;
-    preview?: string;
+    preview?: boolean;
+    isArchived?: boolean;
 }
-const Cover = ({ url, preview }: CoverImageProps) => {
+const Cover = ({ url, preview, isArchived }: CoverImageProps) => {
     const params = useParams();
     const coverImage = useCoverImage();
     const remove = useMutation(api.documents.removeCoverImage);
@@ -35,9 +36,10 @@ const Cover = ({ url, preview }: CoverImageProps) => {
     return (
         <div
             className={cn(
-                'relative w-full h-[35vh] group mt-14',
+                'w-full h-[35vh] relative group mt-14',
                 !url && 'h-[12vh]',
-                url && 'bg-muted'
+                url && 'bg-muted',
+                isArchived && 'mt-24'
             )}
         >
             {!!url && (
