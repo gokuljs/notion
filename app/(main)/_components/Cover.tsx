@@ -14,7 +14,7 @@ import React from 'react';
 
 interface CoverImageProps {
     url?: string;
-    preview?: string;
+    preview?: boolean;
     isArchived?: boolean;
 }
 const Cover = ({ url, preview, isArchived }: CoverImageProps) => {
