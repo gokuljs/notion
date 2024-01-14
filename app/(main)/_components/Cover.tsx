@@ -10,7 +10,7 @@ import { useMutation } from 'convex/react';
 import { ImageIcon, X } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CoverImageProps {
     url?: string;
@@ -18,11 +18,14 @@ interface CoverImageProps {
     isArchived?: boolean;
 }
 const Cover = ({ url, preview, isArchived }: CoverImageProps) => {
+    const [mounted, setIsMounted] = useState(false);
     const params = useParams();
     const coverImage = useCoverImage();
     const remove = useMutation(api.documents.removeCoverImage);
     const { edgestore } = useEdgeStore();
-
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
     const removeImage = async () => {
         if (url) {
             await edgestore.publicFiles.delete({
@@ -33,13 +36,17 @@ const Cover = ({ url, preview, isArchived }: CoverImageProps) => {
             });
         }
     };
+    if (!mounted) {
+        return null;
+    }
     return (
         <div
             className={cn(
                 'w-full h-[35vh] relative group mt-14',
                 !url && 'h-[12vh]',
                 url && 'bg-muted',
-                isArchived && 'mt-24'
+                isArchived && 'mt-24',
+                preview && 'mt-0'
             )}
         >
             {!!url && (

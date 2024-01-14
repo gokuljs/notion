@@ -55,7 +55,7 @@ const DocumentIdPage = ({ params }: DocumentIdProps) => {
                 url={document.coverImage}
                 isArchived={document?.isArchived}
             />
-            <div className='md:max-w-3xl lg:max-4-xl lg:px-40'>
+            <div className='lg:px-40'>
                 <ToolBar initialData={document} />
                 <Editor onChange={onChange} initialContent={document.content} />
             </div>
