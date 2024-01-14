@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
 
-const page = () => {
+const Page = () => {
     const { user } = useUser();
     const router = useRouter();
     const create = useMutation(api.documents.create);
@@ -50,4 +50,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
