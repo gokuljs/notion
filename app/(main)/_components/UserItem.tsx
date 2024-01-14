@@ -56,14 +56,16 @@ const UserItem = () => {
                     </div>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                    className='w-full cursor-pointer text-muted-foreground'
-                    onClick={() => {
-                        window.location.reload();
-                    }}
-                >
-                    <SignOutButton>Logout</SignOutButton>
-                </DropdownMenuItem>
+                <SignOutButton>
+                    <DropdownMenuItem
+                        className='w-full cursor-pointer text-muted-foreground'
+                        onClick={() => {
+                            window.location.reload();
+                        }}
+                    >
+                        Logout
+                    </DropdownMenuItem>
+                </SignOutButton>
             </DropdownMenuContent>
         </DropdownMenu>
     );
