@@ -38,6 +38,7 @@ const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
                 </AlertDialogDescription>
                 <AlertDialogFooter>
                     <AlertDialogCancel
+                        className='dark:text-[white]'
                         onClick={(e) => {
                             e.stopPropagation();
                         }}
