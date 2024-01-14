@@ -1,6 +1,6 @@
 'use client';
 import { Id } from '@/convex/_generated/dataModel';
-import React from 'react';
+import React, { FC } from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,7 +21,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 interface MenuProps {
     documentId: Id<'documents'>;
 }
-const Menu = ({ documentId }: MenuProps) => {
+
+interface MenuComponent extends FC<MenuProps> {
+    Skeleton: FC;
+    displayName?: string;
+}
+const Menu: MenuComponent = ({ documentId }) => {
     const { user } = useUser();
     const router = useRouter();
     const archive = useMutation(api.documents.archive);
@@ -61,8 +66,11 @@ const Menu = ({ documentId }: MenuProps) => {
     );
 };
 
+Menu.displayName = 'Menu';
+
 Menu.Skeleton = () => {
     return <Skeleton className='h-10 w-10' />;
 };
+Menu.Skeleton.displayName = 'Cover.Skeleton';
 
 export default Menu;

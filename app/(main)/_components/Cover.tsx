@@ -10,14 +10,18 @@ import { useMutation } from 'convex/react';
 import { ImageIcon, X } from 'lucide-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 interface CoverImageProps {
     url?: string;
     preview?: boolean;
     isArchived?: boolean;
 }
-const Cover = ({ url, preview, isArchived }: CoverImageProps) => {
+interface CoverComponent extends FC<CoverImageProps> {
+    Skeleton: FC;
+    displayName?: string;
+}
+const Cover: CoverComponent = ({ url, preview, isArchived }) => {
     const [mounted, setIsMounted] = useState(false);
     const params = useParams();
     const coverImage = useCoverImage();
@@ -85,6 +89,10 @@ const Cover = ({ url, preview, isArchived }: CoverImageProps) => {
 
 export default Cover;
 
+Cover.displayName = 'Cover';
+
 Cover.Skeleton = () => {
     return <Skeleton className='w-full h-[12vh]' />;
 };
+
+Cover.Skeleton.displayName = 'Cover.Skeleton';

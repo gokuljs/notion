@@ -5,12 +5,17 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/convex/_generated/api';
 import { Doc } from '@/convex/_generated/dataModel';
 import { useMutation } from 'convex/react';
-import React, { useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 
 interface TitleProps {
     initialData: Doc<'documents'>;
 }
-const Title = ({ initialData }: TitleProps) => {
+
+interface TitleComponent extends FC<TitleProps> {
+    Skeleton: FC;
+    displayName?: string;
+}
+const Title: TitleComponent = ({ initialData }) => {
     const update = useMutation(api.documents.update);
     const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +78,10 @@ const Title = ({ initialData }: TitleProps) => {
 
 export default Title;
 
+Title.displayName = 'Title';
+
 Title.Skeleton = () => {
     return <Skeleton className='h-9 w-16 rounded-md' />;
 };
+
+Title.Skeleton.displayName = 'Cover.Skeleton';
