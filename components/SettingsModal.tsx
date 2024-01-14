@@ -15,7 +15,7 @@ const SettingsModal = () => {
     const settings = useUserSettings();
     return (
         <Dialog open={settings.isOpen} onOpenChange={settings.onClose}>
-            <DialogContent className='border-b pb-3'>
+            <DialogContent className='border-b pb-3 dark:text-[#cfcfcf] '>
                 <DialogHeader className='border-b pb-3'>
                     <h2 className='text-lg font-medium'>My settings</h2>
                 </DialogHeader>

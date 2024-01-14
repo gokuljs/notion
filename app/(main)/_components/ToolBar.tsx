@@ -116,7 +116,7 @@ const ToolBar = ({ initialData, preview }: TollBarProps) => {
                     onKeyDown={onKeyDown}
                     value={value}
                     onChange={(e) => onInput(e.target.value)}
-                    className='text-5xl bg-transparent font-bold break-words outline-none text-[#3f3f3f] dark:text-[#cfcfcf] resize-none'
+                    className='dark:text-[#cfcfcf] text-5xl bg-transparent font-bold break-words outline-none text-[#3f3f3f] resize-none'
                 />
             ) : (
                 <div
