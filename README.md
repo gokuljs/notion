@@ -1,5 +1,9 @@
 ## Technology Stack and Dependencies
 
+## Live Demo
+
+Experience the live version of `notion` at [notionflow-omega.vercel.app](https://notionflow-omega.vercel.app). This hosted version showcases the application's functionality and user interface in action. Feel free to interact with the various features and get a first-hand understanding of what the project offers.
+
 This project is built with the following key technologies:
 
 - **Next.js**: A React framework for building user interfaces with server-side rendering and static site generation.
